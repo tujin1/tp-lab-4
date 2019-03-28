@@ -10,7 +10,9 @@ void cook(int n) {
 
 };
 void finish() 
-{ cout << " Done! " << endl; state = WAIT; }
+{ cout << " Done! " << endl; state = WAIT;
+  cout << "take your change: " << cash << endl; cash = 0;
+}
 
 void cancel() {
 	if (state == CHECK || state == ACCEPT) {
@@ -42,7 +44,6 @@ string  on() {
 string off() {
 	if (state == WAIT)
 	{
-		cout << "take your change: " << cash << endl; cash = 0;
 		state = OFF;
 		return "poka";
 	}

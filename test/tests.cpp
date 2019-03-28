@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Automata.cpp"
+
 #include <string>
 #include "Automata.h"
 TEST(automata, function_coin) {
