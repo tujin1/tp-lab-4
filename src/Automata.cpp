@@ -3,83 +3,92 @@
 #include <string>
 using namespace std;
 
-AAutomata::Automata() {
+void cook(int n) {
+	state = COOK;
+	cout << menu[n - 1] << " is cooking:wait....";
+	finish();
+
+};
+void finish() 
+{ cout << " Done! " << endl; state = WAIT; }
+
+void cancel() {
+	if (state == CHECK || state == ACCEPT) {
+		state = WAIT;
+	}
+}
+Automata() {
+	state = OFF;
+	menu[0] = { "Voda" };
+	menu[1] = { "Vodka" };
+	menu[2] = { "Sok" };
+	menu[3] = { "Chay" };
+	menu[4] = { "Herba" };
+	prices[0] = { 10 };
+	prices[1] = { 20 };
+	prices[2] = { 30 };
+	prices[3] = { 40 };
+	prices[4] = { 50 };
 	state = OFF;
 	cash = 0;
 }
-  void  Automata::on() {
+string  on() {
 	if (state == OFF) {
 		state = WAIT;
-		cout<<"privet";
+		return "privet";
 	}
 
 }
-void Automata::off() {
+string off() {
 	if (state == WAIT)
 	{
+		cout << "take your change: " << cash << endl; cash = 0;
 		state = OFF;
-		cout << "poka";
+		return "poka";
 	}
 
 }
-int Automata::coin(int count) {
+int coin(int count) {
 	if ((state == WAIT) || (state == ACCEPT)) {
 		state = ACCEPT;
 		cash += count;
-		cout << "Dengi:" << cash << endl;
-		cout << "Done?Yes(1) or No(0)?" << endl;
-		int k;
-		cin >> k;
-		if (k == 0) {
-			Automata::coin(count);
-		}
-		
-	}; return 0;
+		return cash;
+	}
+
+
 }
-void Automata::printMenu() {
+void printMenu() {
 	if (state != OFF) {
 		for (int i = 0; i < 5; i++) {
-			cout << i + 1 << ".:" << menu[i] << "(" << prices[i] << ")" << endl;
+			cout << i + 1 << ":" << menu[i] << "(" << prices[i] << ")" << endl;
 		}
 	}
 }
-void Automata::printState() {
-	if (state == WAIT) { cout << "wait"; };
-	if (state == ACCEPT) { cout << "accept"; };
-	if (state == CHECK) { cout << "check"; };
-	if (state == COOK) { cout << "cook"; };
-}
-void Automata::choice(int n) {
+string printState() {
+	if (state != OFF) {
+		if (state == WAIT) { return "wait" };
+		if (state == ACCEPT) { return "accept" };
+		if (state == CHECK) { return "check" };
+		if (state == COOK) { return "cook" };
+	}
+	}
+void choice(int n) {
 	if (state == ACCEPT) {
+		cash -= prices[n - 1];
 		state = CHECK;
-		Automata::check(n);
+		check(n);
 	};
 };
-void Automata::check(int n) {
-	if (cash >= prices[n - 1]) {
-		cout << "Are you sure ?Yes(1) or No(0)" << endl;
-		int k;
-		cin >> k;
-		if (k == 1) { Automata::cook(n); }
+void check(int n) {
+	if (state == ACCEPT || state == CHECK) {
+		if (cash >= prices[n - 1]) {
+			cook(n);
+		}
+
+
 		else {
-			cout << "Chto togda?" << endl; cin >> k; Automata::choice(k);
+			cout << "not enough money" << endl;
+			cancel();
 		}
 	}
-	else {
-		cout << "not enough money. give me more" << endl;
-		int l;
-		cin >> l;
-		cash += l;
-		Automata::check(n);
-	}
 }
-	void Automata::cook(int n) {
-		state = COOK;
-		cout << menu[n - 1] << "cooking:wait....";
-		Automata::finish();
-
-	};
-	void Automata::finish() { state == WAIT; cout << "Give me money of leave. Yes(1) or No(0)?"; int k; cin >> k; if (k > 0) { Automata::coin(k); } else { cout << "take your change"; cash = 0; Automata::off(); }; }
-	void Automata::cancel() {
-		if ((state == CHECK) || (state == ACCEPT)) { state == WAIT; cash = 0; };
-	};

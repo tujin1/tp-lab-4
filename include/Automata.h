@@ -1,3 +1,6 @@
+#include <iostream>
+#include <string>
+using namespace std;
 enum STATES {
 	OFF,
 	WAIT,
@@ -6,22 +9,22 @@ enum STATES {
 	COOK
 };
 
- class Automata {
+class Automata {
 private:
-	int cash;              
-	string menu[5] = { "Voda", "Vodka     ", "Chay  ", "Moloko" ,"Sok"};    
-	int prices[5] = { 10, 20, 30, 40,50 };    
-	STATES state = off;  
+	int cash;
+	string menu[5];
+	int prices[5];
+	STATES state;
 	void cook(int);
 	void finish();
-
+	
  public:
 	Automata();
-	char on();         
-	char off();      
+	string on();         
+	string off();      
 	int coin(int);          
 	void printMenu();      
-	string printState();  
+    string printState();  
 	void choice(int);  
     void check(int);        
 	void cancel();         
