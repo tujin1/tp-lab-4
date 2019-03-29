@@ -2,17 +2,15 @@
 #include <iostream>
 #include <string>
 using namespace std;
-void a() {
-		Automata aut;
-		aut.on();
-		aut.printMenu();
-		aut.coin(50);
-		aut.choice(2);
-		aut.off();
-	}
 
 	int main() {
-		a();
 		
-		system("pause");
+		//Automata aut;
+		//aut.on();
+		//aut.printMenu();
+		//aut.coin(50);
+		//aut.choice(2);
+		//aut.off();
+		//system("pause");
+		return 0;
 	}
